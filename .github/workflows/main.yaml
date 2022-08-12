@@ -1,4 +1,4 @@
-name: page_loader
+name: task_manager
 
 on: [push]
 
@@ -22,4 +22,4 @@ jobs:
           make install
       - name: Run linter
         run: |
-          make check
+          make lint
