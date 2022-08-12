@@ -1,7 +1,7 @@
 install:
 	poetry install
 lint:
-	poetry run flake8 page_loader
+	poetry run flake8 task_manager
 test:
 	poetry run pytest
 selfcheck:
