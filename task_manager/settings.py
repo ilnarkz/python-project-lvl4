@@ -30,7 +30,8 @@ SECRET_KEY = 'django-insecure-n#)k5@i@2!)$z#kh4g&i+b=izt_i42vwe7u&ibojn1g7jqj1q(
 DEBUG = True
 
 ALLOWED_HOSTS = ['webserver',
-                 '*']
+                 '*',
+                 'https://taskmanager-pythonproject.herokuapp.com/']
 
 
 # Application definition
