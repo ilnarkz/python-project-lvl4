@@ -20,3 +20,4 @@ setuptools~=60.7.1
 packaging~=20.9
 zipp~=3.8.1
 Django~=4.0.6
+dj-database-url~=1.0.0
