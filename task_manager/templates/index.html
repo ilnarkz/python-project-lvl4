@@ -1,13 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% load bootstrap4 %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Task manager</title>
-</head>
-<body>
-<h1>Привет от Хекслета!</h1>
-<h2>Практические курсы по программированию</h2>
-<hr>
-<button type="button">Узнать больше</button>
-</body>
+    {% bootstrap_css %}
+  </head>
+  <body class="d-flex flex-column h-100">
+    <header>
+  <!-- Fixed navbar -->
+  <nav class="navbar mb-4 navbar-expand-md navbar-dark fixed-top bg-info">
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">{% translate "Task manager" %}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">{% translate "Users" %}</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">{% translate "Registration" %}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">{% translate "Entry" %}</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- Begin page content -->
+<main role="main" class="flex-shrink-0">
+  <div class="container border border-info p-5">
+    <h1 class="mt-5">Привет от Хекслета!</h1>
+    <p class="lead">Практические курсы по программированию</p>
+    <hr>
+    <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">Узнать больше</a>
+  </div>
+</main>
+
+<footer class="footer mt-auto py-3">
+  <div class="container">
+    <hr>
+    <a target="_blank" href="https://ru.hexlet.io">Hexlet</a>
+  </div>
+</footer>
 </html>
