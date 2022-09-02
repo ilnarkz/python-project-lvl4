@@ -130,7 +130,7 @@ msgstr "У вас недостаточно прав для изменения п
 
 #: task_manager/users/views.py:62
 msgid "Update User"
-msgstr "ИЗменить пользователя"
+msgstr "Изменить пользователя"
 
 #: task_manager/views.py:15
 msgid "You are logged in!"
