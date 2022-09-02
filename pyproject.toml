@@ -6,6 +6,7 @@ authors = ["ilnarkz <ilnar-16_04@mail.ru>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+django-bootstrap4 = "^22.2"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"

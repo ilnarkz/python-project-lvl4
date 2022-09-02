@@ -1,0 +1,50 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "7vzYEiRuE6yB5JdbtsQQ",
+      "last_login": "2022-09-01T20:38:32.321Z",
+      "is_superuser": false,
+      "username": "im_linus",
+      "first_name": "Linus",
+      "last_name": "Torvalds",
+      "email": "linus@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-28T15:12:52.516Z"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "V75sVf5Mn4uq0hDQRhvz",
+      "last_login": "2022-08-30T23:48:02.111Z",
+      "is_superuser": false,
+      "username": "claude_math",
+      "first_name": "Claude",
+      "last_name": "Shannon",
+      "email": "claude@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-08T05:33:41.559Z"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "w6FTJuvh3KudAkHe8HU2",
+      "last_login": "2022-08-11T11:11:11.111Z",
+      "is_superuser": false,
+      "username": "alan_machine",
+      "first_name": "Alan",
+      "last_name": "Turing",
+      "email": "alan@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-08T08:08:08.008Z"
+    }
+  }
+]
