@@ -32,8 +32,13 @@ class UserDeleteView(UserPassesTestMixin, SuccessMessageMixin, DeleteView):
     model = get_user_model()
     success_url = reverse_lazy('index')
     template_name = 'delete.html'
-    error_url = 'users'
+    error_url = reverse_lazy('users:users')
     success_message = _('User deleted successfully!')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Delete user')
+        return context
 
     def test_func(self):
         return self.get_object().id == self.request.user.pk
@@ -47,7 +52,7 @@ class UserUpdateView(UserPassesTestMixin, SuccessMessageMixin, UpdateView):
     model = get_user_model()
     form_class = CreateUserForm
     template_name = 'form.html'
-    error_url = reverse_lazy('users')
+    error_url = reverse_lazy('users:users')
     success_message = _('User updated successfully!')
 
     def test_func(self):

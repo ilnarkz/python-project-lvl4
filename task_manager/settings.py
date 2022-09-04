@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'task_manager',
     'bootstrap4',
     'task_manager.users',
+    'task_manager.statuses',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -143,3 +144,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/'
+
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)

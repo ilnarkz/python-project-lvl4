@@ -21,11 +21,11 @@
                     <a class="nav-link" href="/">{% translate "Task manager" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'users' %}">{% translate "Users" %}</a>
+                    <a class="nav-link" href="{% url 'users:users' %}">{% translate "Users" %}</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{% translate "Statuses" %}</a>
+                    <a class="nav-link" href="{% url 'statuses:statuses' %}">{% translate "Statuses" %}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">{% translate "Tags" %}</a>
@@ -42,7 +42,7 @@
                 </li>
                 {% else %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'create' %}">{% translate "Sign up" %}</a>
+                    <a class="nav-link" href="{% url 'users:create' %}">{% translate "Sign up" %}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">{% translate "Sign in" %}</a>

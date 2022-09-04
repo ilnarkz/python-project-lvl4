@@ -10,7 +10,7 @@ class User(AbstractUser):
 
     @staticmethod
     def get_absolute_url():
-        return reverse('users')
+        return reverse('users:users')
 
     def __str__(self):
         return self.get_username()
