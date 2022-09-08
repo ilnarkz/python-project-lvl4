@@ -8,8 +8,7 @@ class User(AbstractUser):
         full_name = '%s %s' % (self.first_name, self.last_name)
         return full_name.strip()
 
-    @staticmethod
-    def get_absolute_url():
+    def get_absolute_url(self):
         return reverse('users:users')
 
     def __str__(self):

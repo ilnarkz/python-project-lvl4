@@ -3,8 +3,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from task_manager.tasks.models import Task
 from task_manager.users.forms import CreateUserForm
 from django.utils.translation import gettext_lazy as _
 
@@ -46,6 +47,13 @@ class UserDeleteView(UserPassesTestMixin, SuccessMessageMixin, DeleteView):
     def handle_no_permission(self):
         messages.error(self.request, _('You have no permission to delete another user.'))
         return redirect(self.error_url)
+
+    def form_valid(self, form):
+        if Task.objects.filter(author=self.request.user):
+            messages.error(self.request, _("User can not be deleted because it is in use."))
+            return redirect(self.error_url)
+        self.object.delete()
+        return redirect(reverse('users:users'))
 
 
 class UserUpdateView(UserPassesTestMixin, SuccessMessageMixin, UpdateView):

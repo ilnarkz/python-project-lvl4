@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block header %}
+{% translate "Task" %}
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-info text-white">
+        <h2>{{ task.name }}</h2>
+    </div>
+    <div class="card-body bg-light">
+        <p>{{ task.description }}</p>
+        <br>
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col">
+                    {% translate 'Author' %}:
+                </div>
+                <div class="col">
+                    {{ task.author }}
+                </div>
+            </div>
+            <div class="row align-items-start">
+                <div class="col">
+                    {% translate 'Performer' %}:
+                </div>
+                <div class="col">
+                    {{ task.performer }}
+                </div>
+            </div>
+            <div class="row align-items-start">
+                <div class="col">
+                    {% translate 'Status' %}:
+                </div>
+                <div class="col">
+                    {{ task.status }}
+                </div>
+            </div>
+            <div class="row align-items-start">
+                <div class="col">
+                    {% translate 'Created date' %}:
+                </div>
+                <div class="col">
+                    {{ task.created_at }}
+                </div>
+            </div>
+        </div>
+        <a href="{% url 'tasks:update' task.id %}">{% translate "Update" %}</a>
+        <br>
+        <a href="{% url 'tasks:delete' task.id %}">{% translate "Delete" %}</a>
+    </div>
+{% endblock %}

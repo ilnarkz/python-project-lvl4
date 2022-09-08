@@ -8,8 +8,7 @@ class Status(models.Model):
     name = models.CharField(_('name'), max_length=100)
     created_at = models.DateTimeField(_('created date'), default=timezone.now)
 
-    @staticmethod
-    def get_absolute_url():
+    def get_absolute_url(self):
         return reverse('statuses:statuses')
 
     def __str__(self):

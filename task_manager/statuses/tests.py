@@ -13,13 +13,13 @@ class StatusTest(TestCase):
             'name': 'Not done',
         }
         response = self.client.get(reverse('statuses:create'))
-        self.assertRedirects(response, '/login/', 302)
+        self.assertRedirects(response, reverse('login'), 302)
         auth_user = User.objects.last()
         self.client.force_login(auth_user)
         response = self.client.get(reverse('statuses:create'))
         self.assertEqual(response.status_code, 200)
         response = self.client.post(reverse('statuses:create'), new_status, follow=True)
-        self.assertRedirects(response, '/statuses/', 302)
+        self.assertRedirects(response, reverse('statuses:statuses'), 302)
         new_user = Status.objects.last()
         self.assertTrue(new_user.name == 'Not done')
 
@@ -27,7 +27,7 @@ class StatusTest(TestCase):
         update_status = Status.objects.last()
         auth_user = User.objects.last()
         response = self.client.get(reverse('statuses:update', args=(update_status.id,)))
-        self.assertRedirects(response, '/login/', 302)
+        self.assertRedirects(response, reverse('login'), 302)
         self.client.force_login(auth_user)
         response = self.client.get(reverse('statuses:update', args=(update_status.id,)))
         self.assertEqual(response.status_code, 200)
@@ -35,7 +35,7 @@ class StatusTest(TestCase):
             'name': 'Done',
         }
         response = self.client.post(reverse('statuses:update', args=(update_status.id,)), new_status, follow=True)
-        self.assertRedirects(response, '/statuses/', 302)
+        self.assertRedirects(response, reverse('statuses:statuses'), 302)
         new_status = Status.objects.last()
         self.assertTrue(new_status.name == 'Done')
 
@@ -43,13 +43,11 @@ class StatusTest(TestCase):
         delete_status = Status.objects.last()
         auth_user = User.objects.last()
         response = self.client.get(reverse('statuses:delete', args=(delete_status.id,)))
-        self.assertRedirects(response, '/login/', 302)
+        self.assertRedirects(response, reverse('login'), 302)
         self.client.force_login(auth_user)
-        status = Status.objects.last()
-        self.assertTrue(status.name == 'new')
         response = self.client.get(reverse('statuses:delete', args=(delete_status.id,)))
         self.assertEqual(response.status_code, 200)
         response = self.client.post(reverse('statuses:delete', args=(delete_status.id,)), follow=True)
-        self.assertRedirects(response, '/statuses/', 302)
+        self.assertRedirects(response, reverse('statuses:statuses'), 302)
         status = Status.objects.last()
         self.assertFalse(status.name == 'new')
