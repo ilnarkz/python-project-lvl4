@@ -5,7 +5,7 @@
     "fields": {
       "name": "Testing",
       "description": "Finish testing",
-      "status": 1,
+      "status": 3,
       "author": 3,
       "performer": 2,
       "created_at": "2022-08-28T15:12:52.516Z"
@@ -29,7 +29,7 @@
     "fields": {
       "name": "Docs",
       "description": "Write documentation",
-      "status": 3,
+      "status": 1,
       "author": 2,
       "performer": 1,
       "created_at": "2022-08-08T08:08:08.008Z"

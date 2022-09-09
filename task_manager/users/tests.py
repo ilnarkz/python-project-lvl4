@@ -1,11 +1,12 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from task_manager.tasks.models import Task
 from task_manager.users.models import User
 
 
 class UserTest(TestCase):
-    fixtures = ['users.json']
+    fixtures = ['statuses.json', 'users.json', 'tasks.json']
 
     def test_create_user(self):
         new_user = {
@@ -53,6 +54,19 @@ class UserTest(TestCase):
         self.client.force_login(delete_user)
         response = self.client.get(reverse('users:delete', args=(delete_user.id,)))
         self.assertEqual(response.status_code, 200)
+        response = self.client.post(reverse('users:delete', args=(delete_user.id,)), follow=True)
+        '''User can not be deleted because it is in use.'''
+        self.assertRedirects(response, reverse('users:users'), 302)
+        user = User.objects.last()
+        self.assertTrue(user.username == "alan_machine")
+        '''Found all tasks where the user is used. And deleted them'''
+        tasks = Task.objects.filter(author=delete_user.id)
+        for task in tasks:
+            self.client.post(reverse('tasks:delete', args=(task.id,)), follow=True)
+        tasks = Task.objects.filter(performer=delete_user.id)
+        for task in tasks:
+            self.client.post(reverse('tasks:delete', args=(task.id,)), follow=True)
+        '''Now you can test delete of a user'''
         response = self.client.post(reverse('users:delete', args=(delete_user.id,)), follow=True)
         self.assertRedirects(response, reverse('users:users'), 302)
         user = User.objects.last()
