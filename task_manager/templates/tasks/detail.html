@@ -46,9 +46,16 @@
                     {{ task.created_at }}
                 </div>
             </div>
+            <div>
+                {% translate 'Labels' %}:
+                <ul>
+                {% for label in task.labels.all %}
+                    <li>{{ label.name }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            <a href="{% url 'tasks:update' task.id %}">{% translate "Update" %}</a>
+            <br>
+            <a href="{% url 'tasks:delete' task.id %}">{% translate "Delete" %}</a>
         </div>
-        <a href="{% url 'tasks:update' task.id %}">{% translate "Update" %}</a>
-        <br>
-        <a href="{% url 'tasks:delete' task.id %}">{% translate "Delete" %}</a>
-    </div>
-{% endblock %}
+        {% endblock %}

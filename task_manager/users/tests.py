@@ -6,7 +6,7 @@ from task_manager.users.models import User
 
 
 class UserTest(TestCase):
-    fixtures = ['statuses.json', 'users.json', 'tasks.json']
+    fixtures = ['statuses.json', 'users.json', 'tasks.json', 'labels.json']
 
     def test_create_user(self):
         new_user = {

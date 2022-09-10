@@ -1,9 +1,12 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelMultipleChoiceField, SelectMultiple
+
+from task_manager.labels.models import Label
 from task_manager.tasks.models import Task
 
 
 class CreateTaskForm(ModelForm):
+    labels = ModelMultipleChoiceField(queryset=Label.objects.all(), widget=SelectMultiple)
 
     class Meta:
         model = Task
-        fields = ['name', 'description', 'status', 'performer']
+        fields = ['name', 'description', 'status', 'labels', 'performer']

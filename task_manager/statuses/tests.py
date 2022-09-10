@@ -7,7 +7,7 @@ from task_manager.users.models import User
 
 
 class StatusTest(TestCase):
-    fixtures = ['statuses.json', 'users.json', 'tasks.json']
+    fixtures = ['statuses.json', 'users.json', 'tasks.json', 'labels.json']
 
     def test_create_status(self):
         new_status = {
@@ -57,7 +57,7 @@ class StatusTest(TestCase):
         tasks = Task.objects.filter(status=status.id)
         for task in tasks:
             self.client.post(reverse('tasks:delete', args=(task.id,)), follow=True)
-        '''Now you can test delete of a user'''
+        '''Now you can test delete of a status'''
         response = self.client.post(reverse('statuses:delete', args=(delete_status.id,)), follow=True)
         self.assertRedirects(response, reverse('statuses:statuses'), 302)
         status = Status.objects.last()
