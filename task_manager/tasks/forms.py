@@ -5,7 +5,6 @@ from task_manager.tasks.models import Task
 
 
 class CreateTaskForm(ModelForm):
-    labels = ModelMultipleChoiceField(queryset=Label.objects.all(), widget=SelectMultiple)
 
     class Meta:
         model = Task
