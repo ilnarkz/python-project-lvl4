@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 from django.utils.translation import gettext_lazy as _
 from task_manager.statuses.utils import LoginUserCheckingMixin
+from task_manager.tasks.filters import TaskFilter
 from task_manager.tasks.forms import CreateTaskForm
 from task_manager.tasks.models import Task
 
@@ -15,6 +16,13 @@ class TaskListView(LoginUserCheckingMixin, ListView):
     template_name = 'tasks/tasks.html'
     success_url = reverse_lazy('tasks:tasks')
     error_url = reverse_lazy('login')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = TaskFilter(self.request.GET, queryset=self.get_queryset())
+        context['user'] = self.request.user
+        #context['filter_self_tasks'] = TaskFilter(self.request.GET, queryset=self.get_queryset().filter(author=self.request.user))
+        return context
 
 
 class TaskCreateView(LoginUserCheckingMixin, SuccessMessageMixin, CreateView):
