@@ -32,7 +32,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['webserver',
                  '127.0.0.1',
-                 '.herokuapp.com']
+                 'taskmanager-pythonproject.herokuapp.com/']
 
 # Application definition
 
