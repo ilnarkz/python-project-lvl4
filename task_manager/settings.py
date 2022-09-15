@@ -147,7 +147,7 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 
 ROLLBAR = {
     'access_token': os.getenv('ROLLBAR_ACCESS_TOKEN'),
-    'environment': 'development' if DEBUG else 'production',
+    'environment': DEBUG,
     'root': BASE_DIR,
 }
 
