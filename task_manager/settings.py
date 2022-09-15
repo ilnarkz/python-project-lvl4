@@ -31,7 +31,6 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['webserver',
-                 'localhost'
                  '127.0.0.1',
                  'https://taskmanager-pythonproject.herokuapp.com/']
 
@@ -148,7 +147,7 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 
 ROLLBAR = {
     'access_token': os.getenv('ROLLBAR_ACCESS_TOKEN'),
-    'environment': DEBUG,
+    'environment': 'development' if DEBUG else 'production',
     'root': BASE_DIR,
 }
 
