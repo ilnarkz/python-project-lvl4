@@ -1,5 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
+
+from task_manager.tasks.filters import TaskFilter
 from task_manager.tasks.models import Task
 from task_manager.users.models import User
 
@@ -83,3 +85,21 @@ class TaskTest(TestCase):
         self.assertEqual(task.labels.count(), 2)
         for t in task.labels.values():
             self.assertTrue(t['name'] in ['Django', 'Python'])
+
+    def test_filter_list(self):
+        auth_user = User.objects.last()
+        self.client.force_login(auth_user)
+        tasks = Task.objects.all()
+        filter_by_empty_fields = TaskFilter({}, queryset=tasks)
+        self.assertEqual(len(filter_by_empty_fields.qs), 3)
+        filter_by_status = TaskFilter({'status': 1}, queryset=tasks)
+        self.assertEqual(len(filter_by_status.qs), 1)
+        self.assertEqual(filter_by_status.qs.get(status=1).name, 'Docs')
+        filter_by_performer = TaskFilter({'performer': 2}, queryset=tasks)
+        self.assertEqual(len(filter_by_performer.qs), 2)
+        for task_qs in filter_by_performer.qs:
+            self.assertTrue(task_qs.name in ['Project', 'Testing'])
+        filter_by_labels = TaskFilter({'labels': 3}, queryset=tasks)
+        self.assertEqual(len(filter_by_labels.qs), 2)
+        for task_qs in filter_by_labels.qs:
+            self.assertTrue(task_qs.name in ['Docs', 'Testing'])
