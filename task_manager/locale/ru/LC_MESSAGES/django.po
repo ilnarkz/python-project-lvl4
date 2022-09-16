@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-16 20:50+0300\n"
+"POT-Creation-Date: 2022-09-16 20:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,7 +99,7 @@ msgstr "Создать статус"
 
 #: task_manager/statuses/views.py:39
 msgid "Status deleted successfully!"
-msgstr "Статус успешно удален"
+msgstr "Статус успешно удалён"
 
 #: task_manager/statuses/views.py:43
 msgid "Deleting status"
@@ -111,7 +111,7 @@ msgstr "Невозможно удалить статус, потому что о
 
 #: task_manager/statuses/views.py:60
 msgid "Status updated successfully!"
-msgstr "Статус успешно изменен"
+msgstr "Статус успешно изменён"
 
 #: task_manager/statuses/views.py:64
 msgid "Updating status"
@@ -265,7 +265,7 @@ msgstr "Зарегистрировать"
 
 #: task_manager/users/views.py:37
 msgid "User deleted successfully!"
-msgstr "Пользователь успешно удален"
+msgstr "Пользователь успешно удалён"
 
 #: task_manager/users/views.py:41
 msgid "Deleting user"
@@ -281,7 +281,7 @@ msgstr "Невозможно удалить пользователя, потом
 
 #: task_manager/users/views.py:65
 msgid "User updated successfully!"
-msgstr "Пользователь успешно изменен"
+msgstr "Пользователь успешно изменён"
 
 #: task_manager/users/views.py:71
 msgid "You have no permission to update another user."
