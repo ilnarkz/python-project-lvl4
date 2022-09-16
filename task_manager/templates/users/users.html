@@ -7,30 +7,30 @@
 
 {% block content %}
 <table class="table table-striped">
-  <thead>
+    <thead>
     <tr>
-      <th>{% translate "ID" %}</th>
-      <th>{% translate "Username" %}</th>
-      <th>{% translate "Fullname" %}</th>
-      <th>{% translate "Created date" %}</th>
-      <th></th>
+        <th>{% translate "ID" %}</th>
+        <th>{% translate "Username" %}</th>
+        <th>{% translate "Fullname" %}</th>
+        <th>{% translate "Created date" %}</th>
+        <th></th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     {% for user in user_list %}
-      <tr>
+    <tr>
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
         <td>{{ user.get_full_name }}</td>
         <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
         <td>
-          <a href="{% url 'users:update' user.id %}">{% translate "Update" %}</a>
-          <br>
-          <a href="{% url 'users:delete' user.id %}">{% translate "Delete" %}</a>
+            <a href="{% url 'users:update' user.id %}">{% translate "Update" %}</a>
+            <br>
+            <a href="{% url 'users:delete' user.id %}">{% translate "Delete" %}</a>
         </td>
-      </tr>
+    </tr>
     {% endfor %}
-  </tbody>
+    </tbody>
 </table>
 {% endblock %}
 

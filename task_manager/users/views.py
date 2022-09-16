@@ -39,6 +39,7 @@ class UserDeleteView(UserPassesTestMixin, SuccessMessageMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Delete user')
+        context['button_text'] = _('Yes, delete')
         return context
 
     def test_func(self):

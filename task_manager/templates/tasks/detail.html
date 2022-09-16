@@ -49,9 +49,9 @@
             <div>
                 {% translate 'Labels' %}:
                 <ul>
-                {% for label in task.labels.all %}
+                    {% for label in task.labels.all %}
                     <li>{{ label.name }}</li>
-                {% endfor %}
+                    {% endfor %}
                 </ul>
             </div>
             <a href="{% url 'tasks:update' task.id %}">{% translate "Update" %}</a>

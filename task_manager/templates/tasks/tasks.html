@@ -10,40 +10,42 @@
 {% block content %}
 <a class="nav-link" href="{% url 'tasks:create' %}">{% translate "Create task" %}</a>
 <form method="get">
-        {% bootstrap_form filter.form %}
-    <input class="btn btn-info" type="submit" value="{% translate 'Show' %}">
+    {% bootstrap_form filter.form %}
+    {% buttons %}
+    <button class="btn btn-info" type="submit">{{ button_text }}</button>
+    {% endbuttons %}
 </form>
 <table class="table table-striped">
-  <thead>
+    <thead>
     <tr>
-      <th>{% translate "ID" %}</th>
-      <th>{% translate "Name" %}</th>
-      <th>{% translate "Status" %}</th>
-      <th>{% translate "Author" %}</th>
-      <th>{% translate "Performer" %}</th>
-      <th>{% translate "Created date" %}</th>
-      <th></th>
+        <th>{% translate "ID" %}</th>
+        <th>{% translate "Name" %}</th>
+        <th>{% translate "Status" %}</th>
+        <th>{% translate "Author" %}</th>
+        <th>{% translate "Performer" %}</th>
+        <th>{% translate "Created date" %}</th>
+        <th></th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     {% for task in object_list %}
-      <tr>
+    <tr>
         <td>{{ task.id }}</td>
         <td>
-          <a href="{% url 'tasks:detail' task.id %}">{{ task.name }}</a>
+            <a href="{% url 'tasks:detail' task.id %}">{{ task.name }}</a>
         </td>
         <td>{{ task.status }}</td>
         <td>{{ task.author }}</td>
         <td>{{ task.performer }}</td>
         <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
         <td>
-          <a href="{% url 'tasks:update' task.id %}">{% translate "Update" %}</a>
-          <br>
-          <a href="{% url 'tasks:delete' task.id %}">{% translate "Delete" %}</a>
+            <a href="{% url 'tasks:update' task.id %}">{% translate "Update" %}</a>
+            <br>
+            <a href="{% url 'tasks:delete' task.id %}">{% translate "Delete" %}</a>
         </td>
-      </tr>
+    </tr>
     {% endfor %}
-  </tbody>
+    </tbody>
 </table>
 {% endblock %}
 

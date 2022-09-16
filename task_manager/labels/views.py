@@ -10,18 +10,19 @@ from task_manager.statuses.utils import LoginUserCheckingMixin
 from task_manager.tasks.models import Task
 
 
+SUCCESS_URL = reverse_lazy('labels:labels')
+
+
 class LabelListView(LoginUserCheckingMixin, ListView):
     model = Label
     template_name = 'labels/labels.html'
-    success_url = reverse_lazy('labels:labels')
-    error_url = reverse_lazy('login')
 
 
 class LabelCreateView(LoginUserCheckingMixin, SuccessMessageMixin, CreateView):
     model = Label
     form_class = CreateLabelForm
     template_name = 'form.html'
-    success_url = reverse_lazy('labels:labels')
+    success_url = SUCCESS_URL
     success_message = _('Label created successfully!')
 
     def get_context_data(self, **kwargs):
@@ -33,13 +34,14 @@ class LabelCreateView(LoginUserCheckingMixin, SuccessMessageMixin, CreateView):
 
 class LabelDeleteView(LoginUserCheckingMixin, SuccessMessageMixin, DeleteView):
     model = Label
-    success_url = reverse_lazy('labels:labels')
+    success_url = SUCCESS_URL
     template_name = 'delete.html'
     success_message = _('Label deleted successfully!')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Delete label')
+        context['button_text'] = _('Yes, delete')
         return context
 
     def form_valid(self, form):
@@ -54,7 +56,7 @@ class LabelUpdateView(LoginUserCheckingMixin, SuccessMessageMixin, UpdateView):
     model = Label
     form_class = CreateLabelForm
     template_name = 'form.html'
-    success_url = reverse_lazy('labels:labels')
+    success_url = SUCCESS_URL
     success_message = _('Label updated successfully!')
 
     def get_context_data(self, **kwargs):

@@ -10,6 +10,9 @@ from task_manager.statuses.utils import LoginUserCheckingMixin
 from task_manager.tasks.models import Task
 
 
+SUCCESS_URL = reverse_lazy('statuses:statuses')
+
+
 class StatusListView(LoginUserCheckingMixin, ListView):
     model = Status
     template_name = 'statuses/statuses.html'
@@ -19,7 +22,7 @@ class StatusCreateView(LoginUserCheckingMixin, SuccessMessageMixin, CreateView):
     model = Status
     form_class = CreateStatusForm
     template_name = 'form.html'
-    success_url = reverse_lazy('statuses:statuses')
+    success_url = SUCCESS_URL
     success_message = _('Status created successfully!')
 
     def get_context_data(self, **kwargs):
@@ -31,13 +34,14 @@ class StatusCreateView(LoginUserCheckingMixin, SuccessMessageMixin, CreateView):
 
 class StatusDeleteView(LoginUserCheckingMixin, SuccessMessageMixin, DeleteView):
     model = Status
-    success_url = reverse_lazy('statuses:statuses')
+    success_url = SUCCESS_URL
     template_name = 'delete.html'
     success_message = _('Status deleted successfully!')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Delete status')
+        context['button_text'] = _('Yes, delete')
         return context
 
     def form_valid(self, form):
@@ -52,7 +56,7 @@ class StatusUpdateView(LoginUserCheckingMixin, SuccessMessageMixin, UpdateView):
     model = Status
     form_class = CreateStatusForm
     template_name = 'form.html'
-    success_url = reverse_lazy('statuses:statuses')
+    success_url = SUCCESS_URL
     success_message = _('Status updated successfully!')
 
     def get_context_data(self, **kwargs):

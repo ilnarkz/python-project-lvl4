@@ -6,22 +6,23 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.utils.translation import gettext_lazy as _
 from django_filters.views import FilterView
-
 from task_manager.statuses.utils import LoginUserCheckingMixin
 from task_manager.tasks.filters import TaskFilter
 from task_manager.tasks.forms import CreateTaskForm
 from task_manager.tasks.models import Task
 
 
+SUCCESS_URL = reverse_lazy('tasks:tasks')
+
+
 class TaskListView(LoginUserCheckingMixin, FilterView):
     model = Task
     template_name = 'tasks/tasks.html'
-    success_url = reverse_lazy('tasks:tasks')
-    error_url = reverse_lazy('login')
     filterset_class = TaskFilter
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['button_text'] = _('Show')
         context['filter'] = TaskFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
@@ -30,7 +31,7 @@ class TaskCreateView(LoginUserCheckingMixin, SuccessMessageMixin, CreateView):
     model = Task
     form_class = CreateTaskForm
     template_name = 'form.html'
-    success_url = reverse_lazy('tasks:tasks')
+    success_url = SUCCESS_URL
     success_message = _('Task created successfully!')
 
     def get_context_data(self, **kwargs):
@@ -51,13 +52,14 @@ class TaskDetailView(LoginUserCheckingMixin, DetailView):
 
 class TaskDeleteView(LoginUserCheckingMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
     model = Task
-    success_url = reverse_lazy('tasks:tasks')
+    success_url = SUCCESS_URL
     template_name = 'delete.html'
     success_message = _('Task deleted successfully!')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Delete task')
+        context['button_text'] = _('Yes, delete')
         return context
 
     def test_func(self):
@@ -72,7 +74,7 @@ class TaskUpdateView(LoginUserCheckingMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = CreateTaskForm
     template_name = 'form.html'
-    success_url = reverse_lazy('tasks:tasks')
+    success_url = SUCCESS_URL
     success_message = _('Task updated successfully!')
 
     def get_context_data(self, **kwargs):
