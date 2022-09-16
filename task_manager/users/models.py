@@ -12,4 +12,4 @@ class User(AbstractUser):
         return reverse('users:users')
 
     def __str__(self):
-        return self.get_username()
+        return self.get_full_name()
