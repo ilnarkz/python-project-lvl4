@@ -50,10 +50,12 @@ class UserDeleteView(UserPassesTestMixin, SuccessMessageMixin, DeleteView):
         return redirect(self.error_url)
 
     def form_valid(self, form):
+        success_message = self.success_message
         if Task.objects.filter(author=self.request.user):
             messages.error(self.request, _("It is not possible to delete a user because it is in use"))
             return redirect(self.error_url)
         self.object.delete()
+        messages.success(self.request, success_message)
         return redirect(reverse('users:users'))
 
 
