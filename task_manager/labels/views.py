@@ -45,10 +45,12 @@ class LabelDeleteView(LoginUserCheckingMixin, SuccessMessageMixin, DeleteView):
         return context
 
     def form_valid(self, form):
+        success_message = self.success_message
         if Task.objects.filter(labels=self.object):
             messages.error(self.request, _("It is not possible to delete a label because it is in use"))
             return redirect(self.success_url)
         self.object.delete()
+        messages.success(self.request, success_message)
         return redirect(self.success_url)
 
 
