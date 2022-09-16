@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-16 19:58+0300\n"
+"POT-Creation-Date: 2022-09-16 20:34+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -200,12 +200,12 @@ msgstr "Задачи"
 msgid "Log out"
 msgstr "Выход"
 
-#: task_manager/templates/base.html:45 task_manager/users/views.py:28
-msgid "Sign up"
-msgstr "Зарегистрировать"
+#: task_manager/templates/base.html:45 task_manager/users/views.py:27
+msgid "Registration"
+msgstr "Регистрация"
 
 #: task_manager/templates/base.html:48 task_manager/views.py:19
-msgid "Log in"
+msgid "Entry"
 msgstr "Вход"
 
 #: task_manager/templates/delete.html:6
@@ -259,9 +259,9 @@ msgstr "Полное имя"
 msgid "User created successfully!"
 msgstr "Пользователь успешно создан"
 
-#: task_manager/users/views.py:27
-msgid "Registration"
-msgstr "Регистрация"
+#: task_manager/users/views.py:28
+msgid "Sign up"
+msgstr "Зарегистрировать"
 
 #: task_manager/users/views.py:37
 msgid "User deleted successfully!"
