@@ -302,9 +302,3 @@ msgstr "Войти"
 #: task_manager/views.py:28
 msgid "You are logged out!"
 msgstr "Вы разлогинены"
-
-#~ msgid "Delete task"
-#~ msgstr "Удалить задачу"
-
-#~ msgid "Update task"
-#~ msgstr "Изменить задачу"
