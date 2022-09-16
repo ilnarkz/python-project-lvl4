@@ -12,7 +12,7 @@
     </div>
     <div class="card-body bg-light">
         <p>{{ task.description }}</p>
-        <br>
+        <hr>
         <div class="container">
             <div class="row align-items-start">
                 <div class="col">
@@ -58,4 +58,4 @@
             <br>
             <a href="{% url 'tasks:delete' task.id %}">{% translate "Delete" %}</a>
         </div>
-        {% endblock %}
+{% endblock %}
