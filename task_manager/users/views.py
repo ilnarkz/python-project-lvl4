@@ -38,7 +38,7 @@ class UserDeleteView(UserPassesTestMixin, SuccessMessageMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Delete user')
+        context['title'] = _('Deleting user')
         context['button_text'] = _('Yes, delete')
         return context
 
@@ -51,7 +51,7 @@ class UserDeleteView(UserPassesTestMixin, SuccessMessageMixin, DeleteView):
 
     def form_valid(self, form):
         if Task.objects.filter(author=self.request.user):
-            messages.error(self.request, _("User can not be deleted because it is in use."))
+            messages.error(self.request, _("It is not possible to delete a user because it is in use"))
             return redirect(self.error_url)
         self.object.delete()
         return redirect(reverse('users:users'))
@@ -73,6 +73,6 @@ class UserUpdateView(UserPassesTestMixin, SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Update User')
+        context['title'] = _('Updating User')
         context['button_text'] = _('Update')
         return context

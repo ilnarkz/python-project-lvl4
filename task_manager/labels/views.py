@@ -40,13 +40,13 @@ class LabelDeleteView(LoginUserCheckingMixin, SuccessMessageMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Delete label')
+        context['title'] = _('Deleting label')
         context['button_text'] = _('Yes, delete')
         return context
 
     def form_valid(self, form):
         if Task.objects.filter(labels=self.object):
-            messages.error(self.request, _("Label can not be deleted because it is in use."))
+            messages.error(self.request, _("It is not possible to delete a label because it is in use"))
             return redirect(self.success_url)
         self.object.delete()
         return redirect(self.success_url)
@@ -61,6 +61,6 @@ class LabelUpdateView(LoginUserCheckingMixin, SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Update label')
+        context['title'] = _('Updating label')
         context['button_text'] = _('Update')
         return context
