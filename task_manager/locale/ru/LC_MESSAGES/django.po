@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-16 23:19+0300\n"
+"POT-Creation-Date: 2022-09-17 01:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,14 +21,14 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: task_manager/labels/models.py:8 task_manager/statuses/models.py:8
-#: task_manager/tasks/models.py:12 task_manager/templates/labels/labels.html:14
+#: task_manager/tasks/models.py:11 task_manager/templates/labels/labels.html:14
 #: task_manager/templates/statuses/statuses.html:14
 #: task_manager/templates/tasks/tasks.html:22
 msgid "Name"
 msgstr "Имя"
 
 #: task_manager/labels/models.py:9 task_manager/statuses/models.py:9
-#: task_manager/tasks/models.py:18 task_manager/templates/labels/labels.html:15
+#: task_manager/tasks/models.py:17 task_manager/templates/labels/labels.html:15
 #: task_manager/templates/statuses/statuses.html:15
 #: task_manager/templates/tasks/detail.html:43
 #: task_manager/templates/tasks/tasks.html:26
@@ -117,31 +117,35 @@ msgstr "Статус успешно изменён"
 msgid "Updating status"
 msgstr "Изменение статуса"
 
-#: task_manager/tasks/filters.py:11
+#: task_manager/tasks/filters.py:9
+msgid "Label"
+msgstr "Метка"
+
+#: task_manager/tasks/filters.py:10
 msgid "Only self tasks"
 msgstr "Только свои задачи"
 
-#: task_manager/tasks/models.py:13
+#: task_manager/tasks/models.py:12
 msgid "Description"
 msgstr "Описание"
 
-#: task_manager/tasks/models.py:14 task_manager/templates/tasks/detail.html:35
+#: task_manager/tasks/models.py:13 task_manager/templates/tasks/detail.html:35
 #: task_manager/templates/tasks/tasks.html:23
 msgid "Status"
 msgstr "Статус"
 
-#: task_manager/tasks/models.py:15 task_manager/templates/base.html:31
+#: task_manager/tasks/models.py:14 task_manager/templates/base.html:31
 #: task_manager/templates/labels/labels.html:5
 #: task_manager/templates/tasks/detail.html:50
 msgid "Labels"
 msgstr "Метки"
 
-#: task_manager/tasks/models.py:16 task_manager/templates/tasks/detail.html:19
+#: task_manager/tasks/models.py:15 task_manager/templates/tasks/detail.html:19
 #: task_manager/templates/tasks/tasks.html:24
 msgid "Author"
 msgstr "Автор"
 
-#: task_manager/tasks/models.py:17 task_manager/templates/tasks/detail.html:27
+#: task_manager/tasks/models.py:16 task_manager/templates/tasks/detail.html:27
 #: task_manager/templates/tasks/tasks.html:25
 msgid "Executor"
 msgstr "Исполнитель"
