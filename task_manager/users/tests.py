@@ -63,7 +63,7 @@ class UserTest(TestCase):
         tasks = Task.objects.filter(author=delete_user.id)
         for task in tasks:
             self.client.post(reverse('tasks:delete', args=(task.id,)), follow=True)
-        tasks = Task.objects.filter(performer=delete_user.id)
+        tasks = Task.objects.filter(executor=delete_user.id)
         for task in tasks:
             self.client.post(reverse('tasks:delete', args=(task.id,)), follow=True)
         '''Now you can test delete of a user'''

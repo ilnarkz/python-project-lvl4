@@ -14,7 +14,7 @@ class Task(models.Model):
     status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name=_('Status'), null=False)
     labels = models.ManyToManyField(Label, verbose_name=_('Labels'))
     author = models.ForeignKey(User, related_name='authors', verbose_name=_('Author'), on_delete=models.PROTECT)
-    performer = models.ForeignKey(User, related_name='performers', on_delete=models.PROTECT, verbose_name=_('Performer'), null=False)
+    executor = models.ForeignKey(User, related_name='executors', on_delete=models.PROTECT, verbose_name=_('Executor'), null=False)
     created_at = models.DateTimeField(_('Created date'), default=timezone.now)
 
     def get_absolute_url(self):

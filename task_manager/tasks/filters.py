@@ -12,7 +12,7 @@ class TaskFilter(django_filters.FilterSet):
 
     class Meta:
         model = Task
-        fields = ['status', 'performer', 'labels', 'self_tasks']
+        fields = ['status', 'executor', 'labels', 'self_tasks']
 
     def get_self_tasks(self, queryset, name, value):
         if value:
