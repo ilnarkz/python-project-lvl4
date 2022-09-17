@@ -18,7 +18,11 @@ class UserTest(TestCase):
         }
         response = self.client.get(reverse('users:create'))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse('users:create'), new_user, follow=True)
+        response = self.client.post(
+            reverse('users:create'),
+            new_user,
+            follow=True
+        )
         self.assertRedirects(response, reverse('login'), 302)
         new_user = User.objects.last()
         self.assertTrue(new_user.username == 'NashOfficial')
@@ -39,7 +43,10 @@ class UserTest(TestCase):
             'password1': 'cyh2UTJrjexWUD2Akwo6',
             'password2': 'cyh2UTJrjexWUD2Akwo6'
         }
-        response = self.client.post(reverse('users:update', args=(update_user.id,)), new_user, follow=True)
+        response = self.client.post(
+            reverse('users:update', args=(update_user.id,)),
+            new_user,
+            follow=True)
         self.assertRedirects(response, reverse('users:users'), 302)
         new_user = User.objects.last()
         self.assertTrue(new_user.username == 'NashOfficial')
@@ -54,7 +61,10 @@ class UserTest(TestCase):
         self.client.force_login(delete_user)
         response = self.client.get(reverse('users:delete', args=(delete_user.id,)))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse('users:delete', args=(delete_user.id,)), follow=True)
+        response = self.client.post(
+            reverse('users:delete', args=(delete_user.id,)),
+            follow=True
+        )
         '''User can not be deleted because it is in use.'''
         self.assertRedirects(response, reverse('users:users'), 302)
         user = User.objects.last()
@@ -62,12 +72,21 @@ class UserTest(TestCase):
         '''Found all tasks where the user is used. And deleted them'''
         tasks = Task.objects.filter(author=delete_user.id)
         for task in tasks:
-            self.client.post(reverse('tasks:delete', args=(task.id,)), follow=True)
+            self.client.post(
+                reverse('tasks:delete', args=(task.id,)),
+                follow=True
+            )
         tasks = Task.objects.filter(executor=delete_user.id)
         for task in tasks:
-            self.client.post(reverse('tasks:delete', args=(task.id,)), follow=True)
+            self.client.post(
+                reverse('tasks:delete', args=(task.id,)),
+                follow=True
+            )
         '''Now you can test delete of a user'''
-        response = self.client.post(reverse('users:delete', args=(delete_user.id,)), follow=True)
+        response = self.client.post(
+            reverse('users:delete', args=(delete_user.id,)),
+            follow=True
+        )
         self.assertRedirects(response, reverse('users:users'), 302)
         user = User.objects.last()
         self.assertTrue(user.username == "claude_math")

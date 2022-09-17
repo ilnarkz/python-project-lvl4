@@ -23,7 +23,11 @@ class TaskTest(TestCase):
         self.client.force_login(auth_user)
         response = self.client.get(reverse('tasks:create'))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse('tasks:create'), new_task, follow=True)
+        response = self.client.post(
+            reverse('tasks:create'),
+            new_task,
+            follow=True
+        )
         self.assertRedirects(response, reverse('tasks:tasks'), 302)
         task = Task.objects.last()
         self.assertTrue(task.name == 'Not done')
@@ -50,7 +54,11 @@ class TaskTest(TestCase):
             'labels': [1, 3],
             'executor': 2
         }
-        response = self.client.post(reverse('tasks:update', args=(update_task.id,)), new_task, follow=True)
+        response = self.client.post(
+            reverse('tasks:update', args=(update_task.id,)),
+            new_task,
+            follow=True
+        )
         self.assertRedirects(response, reverse('tasks:tasks'), 302)
         new_task = Task.objects.last()
         self.assertTrue(new_task.name == 'Create project')
@@ -74,7 +82,10 @@ class TaskTest(TestCase):
         self.client.force_login(auth_user)
         response = self.client.get(reverse('tasks:delete', args=(delete_task.id,)))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse('tasks:delete', args=(delete_task.id,)), follow=True)
+        response = self.client.post(
+            reverse('tasks:delete', args=(delete_task.id,)),
+            follow=True
+        )
         self.assertRedirects(response, reverse('tasks:tasks'), 302)
         task = Task.objects.last()
         self.assertTrue(task.name == "Project")

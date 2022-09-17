@@ -50,7 +50,12 @@ class TaskDetailView(LoginUserCheckingMixin, DetailView):
     template_name = 'tasks/detail.html'
 
 
-class TaskDeleteView(LoginUserCheckingMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(
+    LoginUserCheckingMixin,
+    UserPassesTestMixin,
+    SuccessMessageMixin,
+    DeleteView
+):
     model = Task
     success_url = SUCCESS_URL
     template_name = 'delete.html'
@@ -66,7 +71,10 @@ class TaskDeleteView(LoginUserCheckingMixin, UserPassesTestMixin, SuccessMessage
         return self.get_object().author == self.request.user
 
     def handle_no_permission(self):
-        messages.error(self.request, _('Task can be deleted only by its author.'))
+        messages.error(
+            self.request,
+            _('Task can be deleted only by its author.')
+        )
         return redirect(self.success_url)
 
 

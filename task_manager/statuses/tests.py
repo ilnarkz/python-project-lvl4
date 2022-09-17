@@ -34,7 +34,11 @@ class StatusTest(TestCase):
         new_status = {
             'name': 'Done',
         }
-        response = self.client.post(reverse('statuses:update', args=(update_status.id,)), new_status, follow=True)
+        response = self.client.post(
+            reverse('statuses:update', args=(update_status.id,)),
+            new_status,
+            follow=True
+        )
         self.assertRedirects(response, reverse('statuses:statuses'), 302)
         new_status = Status.objects.last()
         self.assertTrue(new_status.name == 'Done')
@@ -47,7 +51,10 @@ class StatusTest(TestCase):
         self.client.force_login(auth_user)
         response = self.client.get(reverse('statuses:delete', args=(delete_status.id,)))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse('statuses:delete', args=(delete_status.id,)), follow=True)
+        response = self.client.post(
+            reverse('statuses:delete', args=(delete_status.id,)),
+            follow=True
+        )
         '''Status can not be deleted because it is in use.'''
         self.assertRedirects(response, reverse('statuses:statuses'), 302)
         status = Status.objects.last()
@@ -57,7 +64,10 @@ class StatusTest(TestCase):
         for task in tasks:
             self.client.post(reverse('tasks:delete', args=(task.id,)), follow=True)
         '''Now you can test delete of a status'''
-        response = self.client.post(reverse('statuses:delete', args=(delete_status.id,)), follow=True)
+        response = self.client.post(
+            reverse('statuses:delete', args=(delete_status.id,)),
+            follow=True
+        )
         self.assertRedirects(response, reverse('statuses:statuses'), 302)
         status = Status.objects.last()
         self.assertTrue(status.name == 'completed')
