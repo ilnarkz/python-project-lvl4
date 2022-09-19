@@ -10,15 +10,9 @@ class BaseView(TemplateView):
 
 
 class LoginUserView(SuccessMessageMixin, LoginView):
-    template_name = 'form.html'
+    template_name = 'login.html'
     next_page = 'index'
     success_message = _('You are logged in!')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _('Login')
-        context['button_text'] = _('Sign in')
-        return context
 
 
 class LogoutUserView(SuccessMessageMixin, LogoutView):

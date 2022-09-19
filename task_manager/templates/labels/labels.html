@@ -23,7 +23,8 @@
         <td>{{ label.name }}</td>
         <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
         <td>
-            <a href="{% url 'labels:update' label.id %}">{% translate "Update" %}</a>
+            <a style="margin-bottom: 100px" href="{% url 'labels:update' label.id %}">{% translate "Update" %}</a>
+            <br>
             <br>
             <a href="{% url 'labels:delete' label.id %}">{% translate "Delete" %}</a>
         </td>

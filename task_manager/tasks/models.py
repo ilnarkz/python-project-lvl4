@@ -12,6 +12,7 @@ class Task(models.Model):
     description = models.TextField(_('Description'), null=True)
     status = models.ForeignKey(
         Status,
+        related_name='statuses',
         on_delete=models.PROTECT,
         verbose_name=_('Status'),
         null=False

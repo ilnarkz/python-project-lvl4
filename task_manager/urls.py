@@ -26,4 +26,5 @@ urlpatterns = [
     path('labels/', include('task_manager.labels.urls')),
     path('login/', views.LoginUserView.as_view(), name='login'),
     path('logout/', views.LogoutUserView.as_view(), name='logout'),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]

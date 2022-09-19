@@ -18,6 +18,8 @@ class LabelTest(TestCase):
         self.client.force_login(auth_user)
         response = self.client.get(reverse('labels:create'))
         self.assertEqual(response.status_code, 200)
+        label = Label.objects.last()
+        self.assertFalse(label == 'flask')
         response = self.client.post(reverse('labels:create'), new_label, follow=True)
         self.assertRedirects(response, reverse('labels:labels'), 302)
         new_label = Label.objects.last()
@@ -34,6 +36,8 @@ class LabelTest(TestCase):
         new_label = {
             'name': 'work',
         }
+        label = Label.objects.last()
+        self.assertFalse(label == 'work')
         response = self.client.post(
             reverse('labels:update', args=(update_label.id,)),
             new_label,
@@ -55,7 +59,8 @@ class LabelTest(TestCase):
             reverse('labels:delete', args=(delete_label.id,)),
             follow=True
         )
-        '''Label can not be deleted because it is in use.'''
+        messages = list(response.context['messages'])
+        self.assertEqual(str(messages[0]), "Невозможно удалить метку, потому что она используется")
         self.assertRedirects(response, reverse('labels:labels'), 302)
         label = Label.objects.last()
         self.assertTrue(label.name == 'bugs')

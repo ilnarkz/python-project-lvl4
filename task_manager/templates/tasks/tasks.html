@@ -12,7 +12,7 @@
 <form method="get">
     {% bootstrap_form filter.form %}
     {% buttons %}
-    <button class="btn btn-info" type="submit">{{ button_text }}</button>
+    <button class="btn btn-info" type="submit">{% translate "Show" %}</button>
     {% endbuttons %}
 </form>
 <table class="table table-striped">
@@ -40,6 +40,7 @@
         <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
         <td>
             <a href="{% url 'tasks:update' task.id %}">{% translate "Update" %}</a>
+            <br>
             <br>
             <a href="{% url 'tasks:delete' task.id %}">{% translate "Delete" %}</a>
         </td>

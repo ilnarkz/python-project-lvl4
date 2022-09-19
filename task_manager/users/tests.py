@@ -18,6 +18,7 @@ class UserTest(TestCase):
         }
         response = self.client.get(reverse('users:create'))
         self.assertEqual(response.status_code, 200)
+        self.assertFalse(User.objects.filter(username=new_user['username']))
         response = self.client.post(
             reverse('users:create'),
             new_user,
@@ -43,6 +44,7 @@ class UserTest(TestCase):
             'password1': 'cyh2UTJrjexWUD2Akwo6',
             'password2': 'cyh2UTJrjexWUD2Akwo6'
         }
+        self.assertFalse(User.objects.filter(username=new_user['username']))
         response = self.client.post(
             reverse('users:update', args=(update_user.id,)),
             new_user,
@@ -65,7 +67,11 @@ class UserTest(TestCase):
             reverse('users:delete', args=(delete_user.id,)),
             follow=True
         )
-        '''User can not be deleted because it is in use.'''
+        messages = list(response.context['messages'])
+        self.assertEqual(
+            str(messages[0]),
+            "Невозможно удалить пользователя, потому что он используется"
+        )
         self.assertRedirects(response, reverse('users:users'), 302)
         user = User.objects.last()
         self.assertTrue(user.username == "alan_machine")

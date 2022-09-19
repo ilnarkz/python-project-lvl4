@@ -8,6 +8,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:locale" content="{{ LANGUAGE_CODE }}" />
+  <meta property="og:locale:alternate" content="en-gb" />
+  <meta property="og:locale:alternate" content="ru-ru" />
     <title>{% translate "Task manager" %}</title>
     {% bootstrap_css %}
 </head>
@@ -48,6 +51,23 @@
                     <a class="nav-link" href="{% url 'login' %}">{% translate "Login" %}</a>
                 </li>
                 {% endif %}
+                <li class="nav-item active">
+                    <form action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}">
+                        <select name="language">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                                {{ language.code }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" value="{% translate 'Select' %}">
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>

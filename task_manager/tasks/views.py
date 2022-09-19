@@ -1,92 +1,77 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.utils.translation import gettext_lazy as _
 from django_filters.views import FilterView
-from task_manager.statuses.utils import LoginUserCheckingMixin
+from task_manager.constants import ERROR_MESSAGE, ERROR_URL
 from task_manager.tasks.filters import TaskFilter
 from task_manager.tasks.forms import CreateTaskForm
 from task_manager.tasks.models import Task
 
 
-SUCCESS_URL = reverse_lazy('tasks:tasks')
-
-
-class TaskListView(LoginUserCheckingMixin, FilterView):
+class TaskListView(LoginRequiredMixin, FilterView):
     model = Task
     template_name = 'tasks/tasks.html'
     filterset_class = TaskFilter
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['button_text'] = _('Show')
-        context['filter'] = TaskFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    def handle_no_permission(self):
+        messages.error(self.request, ERROR_MESSAGE)
+        return redirect(ERROR_URL)
 
 
-class TaskCreateView(LoginUserCheckingMixin, SuccessMessageMixin, CreateView):
+class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Task
     form_class = CreateTaskForm
-    template_name = 'form.html'
-    success_url = SUCCESS_URL
+    template_name = 'tasks/create.html'
+    success_url = reverse_lazy('tasks:tasks')
     success_message = _('Task created successfully!')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _('Create task')
-        context['button_text'] = _('Create')
-        return context
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+    def handle_no_permission(self):
+        messages.error(self.request, ERROR_MESSAGE)
+        return redirect(ERROR_URL)
 
-class TaskDetailView(LoginUserCheckingMixin, DetailView):
+
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'tasks/detail.html'
 
 
 class TaskDeleteView(
-    LoginUserCheckingMixin,
+    LoginRequiredMixin,
     UserPassesTestMixin,
     SuccessMessageMixin,
     DeleteView
 ):
     model = Task
-    success_url = SUCCESS_URL
-    template_name = 'delete.html'
+    success_url = reverse_lazy('tasks:tasks')
+    template_name = 'tasks/delete.html'
     success_message = _('Task deleted successfully!')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _('Deleting task')
-        context['button_text'] = _('Yes, delete')
-        return context
-
     def test_func(self):
-        return self.get_object().author == self.request.user
+        return self.get_object().author == self.request.user and not self.request.user.is_superuser
 
     def handle_no_permission(self):
-        messages.error(
-            self.request,
-            _('Task can be deleted only by its author.')
-        )
+        if not self.request.user.is_authenticated:
+            messages.error(self.request, ERROR_MESSAGE)
+            return redirect(ERROR_URL)
+        messages.error(self.request, _("Task can be deleted only by its author."))
         return redirect(self.success_url)
 
 
-class TaskUpdateView(LoginUserCheckingMixin, SuccessMessageMixin, UpdateView):
+class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = CreateTaskForm
-    template_name = 'form.html'
-    success_url = SUCCESS_URL
+    template_name = 'tasks/update.html'
+    success_url = reverse_lazy('tasks:tasks')
     success_message = _('Task updated successfully!')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _('Updating task')
-        context['button_text'] = _('Update')
-        return context
+    def handle_no_permission(self):
+        messages.error(self.request, ERROR_MESSAGE)
+        return redirect(ERROR_URL)

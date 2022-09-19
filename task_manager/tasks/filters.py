@@ -21,6 +21,5 @@ class TaskFilter(django_filters.FilterSet):
 
     def get_self_tasks(self, queryset, name, value):
         if value:
-            author = getattr(self.request, 'user', None)
-            return queryset.filter(author=author)
+            return queryset.filter(author=self.request.user)
         return queryset

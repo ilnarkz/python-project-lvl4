@@ -3,11 +3,15 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from task_manager.tasks.models import Task
 from task_manager.users.forms import CreateUserForm
 from django.utils.translation import gettext_lazy as _
+
+
+ERROR_URL = reverse_lazy('users:users')
+ERROR_MESSAGE = _('You have no permission to delete another user.')
 
 
 class UserListView(ListView):
@@ -18,72 +22,50 @@ class UserListView(ListView):
 class UserCreateView(SuccessMessageMixin, CreateView):
     model = get_user_model()
     form_class = CreateUserForm
-    template_name = 'form.html'
+    template_name = 'users/create.html'
     success_url = reverse_lazy('login')
     success_message = _('User registered successfully!')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _('Registration')
-        context['button_text'] = _('Sign up')
-        return context
 
 
 class UserDeleteView(UserPassesTestMixin, SuccessMessageMixin, DeleteView):
     model = get_user_model()
     success_url = reverse_lazy('index')
-    template_name = 'delete.html'
-    error_url = reverse_lazy('users:users')
+    template_name = 'users/delete.html'
     success_message = _('User deleted successfully!')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _('Deleting user')
-        context['button_text'] = _('Yes, delete')
-        return context
-
     def test_func(self):
-        return self.get_object().id == self.request.user.pk
+        return self.get_object().id == self.request.user.pk and not self.request.user.is_superuser
 
     def handle_no_permission(self):
         messages.error(
             self.request,
             _('You have no permission to delete another user.')
         )
-        return redirect(self.error_url)
+        return redirect(ERROR_URL)
 
     def form_valid(self, form):
-        success_message = self.success_message
-        if Task.objects.filter(author=self.request.user):
+        if Task.objects.filter(author_id=self.request.user.pk):
             messages.error(
                 self.request,
                 _("It is not possible to delete a user because it is in use")
             )
-            return redirect(self.error_url)
-        self.object.delete()
-        messages.success(self.request, success_message)
-        return redirect(reverse('users:users'))
+            return redirect(ERROR_URL)
+        super().form_valid(form)
+        return redirect(ERROR_URL)
 
 
 class UserUpdateView(UserPassesTestMixin, SuccessMessageMixin, UpdateView):
     model = get_user_model()
     form_class = CreateUserForm
-    template_name = 'form.html'
-    error_url = reverse_lazy('users:users')
+    template_name = 'users/update.html'
     success_message = _('User updated successfully!')
 
     def test_func(self):
-        return self.get_object().id == self.request.user.pk
+        return self.get_object().id == self.request.user.pk and not self.request.user.is_superuser
 
     def handle_no_permission(self):
         messages.error(
             self.request,
             _('You have no permission to update another user.')
         )
-        return redirect(self.error_url)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _('Updating User')
-        context['button_text'] = _('Update')
-        return context
+        return redirect(ERROR_URL)

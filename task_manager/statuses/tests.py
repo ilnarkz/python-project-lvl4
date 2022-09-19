@@ -18,6 +18,8 @@ class StatusTest(TestCase):
         self.client.force_login(auth_user)
         response = self.client.get(reverse('statuses:create'))
         self.assertEqual(response.status_code, 200)
+        status = Status.objects.last()
+        self.assertFalse(status == 'Not done')
         response = self.client.post(reverse('statuses:create'), new_status, follow=True)
         self.assertRedirects(response, reverse('statuses:statuses'), 302)
         new_user = Status.objects.last()
@@ -34,6 +36,8 @@ class StatusTest(TestCase):
         new_status = {
             'name': 'Done',
         }
+        status = Status.objects.last()
+        self.assertFalse(status == 'Done')
         response = self.client.post(
             reverse('statuses:update', args=(update_status.id,)),
             new_status,
@@ -55,7 +59,8 @@ class StatusTest(TestCase):
             reverse('statuses:delete', args=(delete_status.id,)),
             follow=True
         )
-        '''Status can not be deleted because it is in use.'''
+        messages = list(response.context['messages'])
+        self.assertEqual(str(messages[0]), "Невозможно удалить статус, потому что он используется")
         self.assertRedirects(response, reverse('statuses:statuses'), 302)
         status = Status.objects.last()
         self.assertTrue(status.name == 'new')
