@@ -10,3 +10,5 @@ migrate:
 	poetry run python manage.py migrate
 deploy:
 	git push heroku main
+test:
+	poetry run python manage.py test

@@ -5,5 +5,29 @@
 
 [![task_manager](https://github.com/ilnarkz/python-project-lvl4/actions/workflows/main.yaml/badge.svg)](https://github.com/ilnarkz/python-project-lvl4/actions/workflows/main.yaml)
 
+# Task manager
 
-https://taskmanager-pythonproject.herokuapp.com
+The "Task Manager" application is a task management system. 
+It allows you to set tasks, assign executors and change their statuses. Registration and authentication are required to work with the system.
+
+[Task manager on Heroku](https://taskmanager-pythonproject.herokuapp.com)
+
+Use the command to install the package: python3 -m pip install git+https://github.com/ilnarkz/python-project-lvl4.git
+
+## Run server
+
+```bash
+make start
+```
+
+## Check codestyle
+
+```bash
+make lint
+```
+
+## Run tests
+
+```bash
+make test
+```
