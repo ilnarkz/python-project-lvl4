@@ -19,12 +19,16 @@ class UserTest(TestCase):
         response = self.client.get(reverse('users:create'))
         self.assertEqual(response.status_code, 200)
         self.assertFalse(User.objects.filter(username=new_user['username']))
+        users = User.objects.count()
+        self.assertEqual(users, 3)
         response = self.client.post(
             reverse('users:create'),
             new_user,
             follow=True
         )
         self.assertRedirects(response, reverse('login'), 302)
+        users = User.objects.count()
+        self.assertEqual(users, 4)
         new_user = User.objects.last()
         self.assertTrue(new_user.username == 'NashOfficial')
         self.assertTrue(new_user.check_password('cyh2UTJrjexWUD2Akwo6'))
@@ -73,6 +77,8 @@ class UserTest(TestCase):
             "Невозможно удалить пользователя, потому что он используется"
         )
         self.assertRedirects(response, reverse('users:users'), 302)
+        users = User.objects.count()
+        self.assertEqual(users, 3)
         user = User.objects.last()
         self.assertTrue(user.username == "alan_machine")
         '''Found all tasks where the user is used. And deleted them'''
@@ -94,5 +100,7 @@ class UserTest(TestCase):
             follow=True
         )
         self.assertRedirects(response, reverse('users:users'), 302)
+        users = User.objects.count()
+        self.assertEqual(users, 2)
         user = User.objects.last()
         self.assertTrue(user.username == "claude_math")
