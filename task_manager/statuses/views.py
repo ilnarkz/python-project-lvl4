@@ -5,34 +5,26 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.utils.translation import gettext_lazy as _
-from task_manager.statuses.forms import CreateStatusForm
+from task_manager.statuses.forms import StatusForm
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
-from task_manager.constants import ERROR_MESSAGE, ERROR_URL
+from task_manager.utils import NoPermissionMixin
 
 
-class StatusListView(LoginRequiredMixin, ListView):
+class StatusListView(NoPermissionMixin, LoginRequiredMixin, ListView):
     model = Status
     template_name = 'statuses/statuses.html'
 
-    def handle_no_permission(self):
-        messages.error(self.request, ERROR_MESSAGE)
-        return redirect(ERROR_URL)
 
-
-class StatusCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class StatusCreateView(NoPermissionMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Status
-    form_class = CreateStatusForm
+    form_class = StatusForm
     template_name = 'statuses/create.html'
     success_url = reverse_lazy('statuses:statuses')
     success_message = _('Status created successfully!')
 
-    def handle_no_permission(self):
-        messages.error(self.request, ERROR_MESSAGE)
-        return redirect(ERROR_URL)
 
-
-class StatusDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class StatusDeleteView(NoPermissionMixin, LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Status
     success_url = reverse_lazy('statuses:statuses')
     template_name = 'statuses/delete.html'
@@ -45,21 +37,12 @@ class StatusDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
                 _("It is not possible to delete a status because it is in use")
             )
             return redirect(self.success_url)
-        super().form_valid(form)
-        return redirect(self.success_url)
-
-    def handle_no_permission(self):
-        messages.error(self.request, ERROR_MESSAGE)
-        return redirect(ERROR_URL)
+        return super().form_valid(form)
 
 
-class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class StatusUpdateView(NoPermissionMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Status
-    form_class = CreateStatusForm
+    form_class = StatusForm
     template_name = 'statuses/update.html'
     success_url = reverse_lazy('statuses:statuses')
     success_message = _('Status updated successfully!')
-
-    def handle_no_permission(self):
-        messages.error(self.request, ERROR_MESSAGE)
-        return redirect(ERROR_URL)
