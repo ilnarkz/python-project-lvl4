@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'task_manager.tasks',
     'task_manager.labels',
     'django_filters',
-    'django_nose',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -152,13 +151,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
-
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-NOSE_ARGS = [
-    '--cover-erase',
-    '--cover-package=MY_APP',
-]
 
 ROLLBAR = {
     'access_token': os.getenv('ROLLBAR_ACCESS_TOKEN'),

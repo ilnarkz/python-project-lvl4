@@ -13,5 +13,5 @@ deploy:
 test:
 	poetry run python manage.py test
 coverage:
-	poetry coverage run manage.py test task_manager
-	poetry coverage xml
+	poetry run coverage run manage.py test task_manager
+	poetry run coverage xml
