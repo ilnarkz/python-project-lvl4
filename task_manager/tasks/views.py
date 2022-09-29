@@ -49,7 +49,7 @@ class TaskDeleteView(
     success_message = _('Task deleted successfully!')
 
     def test_func(self):
-        return self.get_object().author == self.request.user
+        return self.get_object().author == self.request.user or self.request.user.is_superuser
 
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:

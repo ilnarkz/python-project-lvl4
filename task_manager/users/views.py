@@ -60,7 +60,7 @@ class UserUpdateView(UserPassesTestMixin, SuccessMessageMixin, UpdateView):
     success_message = _('User updated successfully!')
 
     def test_func(self):
-        return self.get_object().id == self.request.user.pk
+        return self.get_object().id == self.request.user.pk or self.request.user.is_superuser
 
     def handle_no_permission(self):
         messages.error(
