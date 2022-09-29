@@ -5,6 +5,8 @@
 
 [![task_manager](https://github.com/ilnarkz/python-project-lvl4/actions/workflows/main.yaml/badge.svg)](https://github.com/ilnarkz/python-project-lvl4/actions/workflows/main.yaml)
 
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2cb879034d11589b33ab/test_coverage)](https://codeclimate.com/github/ilnarkz/python-project-lvl4/test_coverage)
+
 # Task manager
 
 The "Task Manager" application is a task management system. 

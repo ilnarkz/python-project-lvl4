@@ -12,3 +12,6 @@ deploy:
 	git push heroku main
 test:
 	poetry run python manage.py test
+coverage:
+	poetry coverage run manage.py test task_manager
+	poetry coverage xml
