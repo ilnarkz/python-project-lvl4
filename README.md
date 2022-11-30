@@ -13,6 +13,8 @@ The "Task Manager" application is a task management system.
 It allows you to set tasks, assign executors and change their statuses. Registration and authentication are required to work with the system.
 
 [Task manager on Heroku](https://taskmanager-pythonproject.herokuapp.com)
+or [Task manager on Heroku](https://web-production-8045.up.railway.app/)
+
 
 Use the command to install the package: python3 -m pip install git+https://github.com/ilnarkz/python-project-lvl4.git
 
