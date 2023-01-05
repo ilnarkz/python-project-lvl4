@@ -15,7 +15,11 @@ It allows you to set tasks, assign executors and change their statuses. Registra
 [Task manager on Railway](https://web-production-8045.up.railway.app/)
 
 
-Use the command to install the package: python3 -m pip install git+https://github.com/ilnarkz/python-project-lvl4.git
+Use the command to install the package: 
+
+```bash
+python3 -m pip install git+https://github.com/ilnarkz/python-project-lvl4.git
+```
 
 ## Run server
 
