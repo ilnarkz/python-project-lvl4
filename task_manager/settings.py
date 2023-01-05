@@ -33,7 +33,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ['webserver',
                  '127.0.0.1',
                  'taskmanager-pythonproject.herokuapp.com',
-                 'web-production-b9fa.up.railway.app']
+                 'web-production-8045.up.railway.app']
 
 # Application definition
 
